@@ -74,28 +74,29 @@ app.post('/friend', async(req, res) => {
 })
 
 app.post('/group', async (req, res) => {
-    const { createdBy, postcode } = req.body
-    if(createdBy == null || postcode == null) {
+    const { phone, postcode } = req.body
+    if(phone == null || postcode == null) {
         res.statusCode = 400
         res.send(JSON.stringify({
-            error: "Missing createdBy or postcode"
+            error: "Missing phone or postcode"
         }))
         return
     }
     try {
         const {lat, lon} = await getLatLon(postcode)
         const result = await query(`MATCH (p:USER)
-        WHERE p.fbId = "${createdBy}"
+        WHERE p.phone = "${phone}"
         CREATE (n:GROUP {
             date: "${Date.now()}",
-            createdBy: "${createdBy}"
+            createdBy: "${phone}"
         })<-[r:IN {
             lat: ${lat},
             lon: ${lon}
         }]-(p)
-        RETURN n`)
+        RETURN ID(n)`)
         res.send(JSON.stringify({
-            msg: `Group created`
+            msg: `Group created for ${phone}`,
+            groupId: getReturn(result)
         }))
     } catch(e) {
         res.statusCode = 400
@@ -106,23 +107,22 @@ app.post('/group', async (req, res) => {
 })
 
 app.post('/group/request', async (req, res) => {
-    const { groupId, userId } = req.body
-    if(groupId == null || userId == null) {
+    const { groupId, phone } = req.body
+    if(groupId == null || phone == null) {
         res.statusCode = 400
         res.send(JSON.stringify({
-            error: "Missing groupid or userId"
+            error: "Missing groupid or phone"
         }))
         return
     }
     try {
-        const {lat, lon} = await getLatLon(postcode)
         const result = await query(`MATCH (p:USER), (g:GROUP)
-        WHERE p.id = ${createdBy} AND
-        g.id = ${groupId}
+        WHERE p.phone = "${phone}" AND
+        ID(g) = ${groupId}
         CREATE (g)-[r:JOIN_REQUEST]->(p)
         RETURN g,p`)
         res.send(JSON.stringify({
-            msg: `Request sent to id ${fbId}`
+            msg: `Request from ${groupId} sent to phone ${phone}`
         }))
     } catch(e) {
         res.statusCode = 400
@@ -133,8 +133,44 @@ app.post('/group/request', async (req, res) => {
 
 })
 
-// View 
-app.get('/group/request', async(req, res) => {
+app.post('/group/accept', async (req, res) => {
+    const { phone, groupId, postcode } = req.body
+    console.log(groupId, phone)
+    if(groupId == null || phone == null || postcode == null) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: "Missing phone, postcode or groupid"
+        }))
+        return
+    }
+    try {
+        let result = await query(`MATCH (p:USER)-[r:JOIN_REQUEST]-(g:GROUP)
+        WHERE p.phone = "${phone}" AND
+        ID(g) = ${groupId}
+        DELETE r 
+        RETURN g`)
+        const {lat, lon} = await getLatLon(postcode)
+        result = await query(`MATCH (p:USER), (g:GROUP)
+        WHERE p.phone = "${phone}" AND
+        ID(g) = ${groupId}
+        CREATE (g)<-[r:IN {
+            lat: ${lat},
+            lon: ${lon}
+        }]-(p)
+        RETURN ID(g)`)
+        res.send(JSON.stringify({
+            msg: `Accepted request from group ${getReturn(result)}`
+        }))
+    } catch(e) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            e: e.message
+        }))
+    }
 })
+
+// View 
+// app.get('/group/request', async(req, res) => {
+// })
 
 

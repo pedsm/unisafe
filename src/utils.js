@@ -11,8 +11,8 @@ async function query(query) {
 async function getLatLon(postcode) {
     const res = await fetch(`https://api.postcodes.io/postcodes/${postcode}`)
     const json = await res.json()
-    console.log(postcode)
-    console.log(json)
+    // console.log(postcode)
+    // console.log(json)
     return {
         lat: json.result.latitude,
         lon: json.result.longitude

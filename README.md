@@ -10,17 +10,25 @@ UniSafe Backend
 - POST `/user` adds users to the database
 ```JSON
 {
-    "name": "Pedro",
-    "phone": "913021841",
-    "initials": "PM"
+    name: "Pedro Mendonca",
+    phone: "123",
+    initials: "PM"
 } 
+```
+
+- POST `/friend` adds friendship
+```JSON
+{
+    phoneA: "123",
+    phoneB: "124"
+}
 ```
 
 - POST `/group` creates a group
 ```JSON
 {
-    "createdBy": "1",
-    "postcode": "ng81bb"
+    phone: '123',
+    postcode: 'ng71lr'
 } 
 ```
 
@@ -31,7 +39,20 @@ UniSafe Backend
 ```JSON
 Request body
 {
-    "groupId": "20",
-    "userId": "1"
+    phone: '124',
+    groupId: 20
+}
+```
+
+- POST `/group/accept` accepts an invitation
+
+// TODO make this endpoint safe as in user checking
+
+```JSON
+Request body
+{
+    phone: '124',
+    groupId: 20,
+    postcode: 'ng71lr'
 }
 ```

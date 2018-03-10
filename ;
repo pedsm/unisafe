@@ -58,17 +58,17 @@ async function test() {
     for(query of queries) {
         console.log(query.comment)
         try {
+            console.log(JSON.stringify(query.body))
             const res = await fetch(`http://localhost:3000/${query.endPoint}`, {
                 headers: {
                     'content-type': 'application/json'
                 },
                 method: query.action,
                 body: (query.endPoint == 'group/request' || 
-                    query.endPoint == 'group/accept')
+                      query.endPoint == 'group/accept')
                 ? JSON.stringify({
-                    postcode: 'ng81bb',
+                    groupId: lastResponse.groupId,
                     phone: '124',
-                    groupId
                 }) : JSON.stringify(query.body)
             })
             lastResponse = await res.json()
