@@ -4,7 +4,8 @@
     "description": "UniSafe Backend",
     "main": "src/app.js",
     "scripts": {
-        "start": "node src/app.js",
+        "start": "node src/app.js --docker",
+        "dev": "nodemon src/app.js",
         "test": "node tests/runBase.js"
     },
     "repository": {

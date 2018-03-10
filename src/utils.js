@@ -1,8 +1,15 @@
 const neo4j = require('neo4j-driver').v1
 const fetch = require('node-fetch')
 
+function inArray(element,arr) {
+    return arr.indexOf(element) !== -1
+}
+
 async function query(query) {
-    const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "123456"))
+    const url = inArray('--docker', process.argv) 
+        ? "bolt://neo4j" 
+        : "bolt://localhost"
+    const driver = neo4j.driver(url, neo4j.auth.basic("neo4j", "123456"))
     const session = driver.session()
 
     return await session.run(query)

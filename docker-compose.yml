@@ -1,7 +1,9 @@
 version: '3'
 services:
-    # scrapper:
-    #     build: .
+    scrapper:
+        build: .
+        ports:
+            - "3001:3000"
     neo4j:
       image: neo4j:3.3
       # volumes:
