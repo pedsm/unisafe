@@ -8,7 +8,8 @@ const queries = [
         body: {
             name: "Pedro Mendonca",
             phone: "123",
-            initials: "PM"
+            initials: "PM",
+            token: "coijaodncowadPM"
         },
     },
     {
@@ -18,7 +19,8 @@ const queries = [
         body: {
             name: "Lawrie Cate",
             phone: "124",
-            initials: "LC"
+            initials: "LC",
+            token: "jdioawjd29103u0hd10"
         },
     },
     {

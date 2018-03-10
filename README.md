@@ -24,6 +24,7 @@ UniSafe Backend
     "name": "Pedro Mendonca",
     "phone": "123",
     "initials": "PM"
+    "token": "1233901u409jdaspjd"
 } 
 ```
 

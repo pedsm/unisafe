@@ -20,11 +20,11 @@ app.get('/', (req, res) => {
 })
 
 app.post('/user', async (req, res) => {
-    const { name, phone, initials } = req.body
-    if(name == null || phone == null || initials == null) {
+    const { name, phone, initials, token } = req.body
+    if(name == null || phone == null || initials == null || token == null) {
         res.statusCode = 400
         res.send(JSON.stringify({
-            error: "Missing name, initials or phone"
+            error: "Missing name, token, initials or phone"
         }))
         return
     }
@@ -32,7 +32,8 @@ app.post('/user', async (req, res) => {
         const result = await query(`CREATE (n:USER {
             name: "${name}",
             phone: "${phone}",
-            initials: "${initials}"
+            initials: "${initials}",
+            token: "${token}"
         }) RETURN ID(n)`)
         res.send(JSON.stringify({
             msg: `User ${name}(${initials}) has been created`,
