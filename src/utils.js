@@ -19,5 +19,9 @@ async function getLatLon(postcode) {
     }
 }
 
-module.exports = {query, getLatLon} 
+function getReturn(obj) {
+    return obj.records[0]._fields[0].low
+}
+
+module.exports = {query, getLatLon, getReturn} 
 

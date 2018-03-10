@@ -11,8 +11,8 @@ UniSafe Backend
 ```JSON
 {
     "name": "Pedro",
-    "photo": "https://...jpg",
-    "fbId": "1"
+    "phone": "913021841",
+    "initials": "PM"
 } 
 ```
 
@@ -27,10 +27,11 @@ UniSafe Backend
 - POST `/group/request` requests a friend to join
 
 // TODO make this endpoint safe as in user checking
+
 ```JSON
 Request body
 {
     "groupId": "20",
-    "fbId": "1"
+    "userId": "1"
 }
 ```
