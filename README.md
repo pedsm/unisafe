@@ -10,25 +10,25 @@ UniSafe Backend
 - POST `/user` adds users to the database
 ```JSON
 {
-    name: "Pedro Mendonca",
-    phone: "123",
-    initials: "PM"
+    "name": "Pedro Mendonca",
+    "phone": "123",
+    "initials": "PM"
 } 
 ```
 
 - POST `/friend` adds friendship
 ```JSON
 {
-    phoneA: "123",
-    phoneB: "124"
+    "phoneA": "123",
+    "phoneB": "124"
 }
 ```
 
 - POST `/group` creates a group
 ```JSON
 {
-    phone: '123',
-    postcode: 'ng71lr'
+    "phone": '123',
+    "postcode": 'ng71lr'
 } 
 ```
 
@@ -39,8 +39,8 @@ UniSafe Backend
 ```JSON
 Request body
 {
-    phone: '124',
-    groupId: 20
+    "phone": "124",
+    "groupId": 20
 }
 ```
 
@@ -51,8 +51,8 @@ Request body
 ```JSON
 Request body
 {
-    phone: '124',
-    groupId: 20,
-    postcode: 'ng71lr'
+    "phone": "124",
+    "groupId": 20,
+    "postcode": "ng71lr"
 }
 ```
