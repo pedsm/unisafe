@@ -242,9 +242,44 @@ app.get('/groups/:me', async (req, res) => {
         const result = await query(`
         MATCH (n:USER)-[r:IN]->(g:GROUP)
         WHERE n.phone = "${me}"
-        RETURN g
+        RETURN g, ID(g) as groupId
     `)
-        res.send(result.records.map(a => a._fields[0].properties))
+        // res.send(result)
+        res.send(result.records.map(a => Object.assign(
+            a._fields[0].properties,
+            { id: a._fields[1].low }
+        )))
+    } catch(e) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: e.message
+        }))
+    }
+    
+})
+
+app.get('/group/:groupId', async (req, res) => {
+    const { groupId } = req.params
+    if(groupId == null) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: 'Group Id not provided'
+        }))
+        return
+    }
+
+    try {
+        const result = await query(`
+        MATCH (n:USER)-[r:IN]->(g:GROUP)
+        WHERE ID(g) = ${groupId}
+        RETURN g, n
+    `)
+        const group = result.records[0]._fields[0].properties
+        const people = result.records.map(a => a._fields[1].properties)
+        res.send({
+            group,
+            people
+        })
     } catch(e) {
         res.statusCode = 400
         res.send(JSON.stringify({
