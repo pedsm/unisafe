@@ -3,7 +3,10 @@ UniSafe Backend
 
 ## Backend endpoitns
 
-### Auth
+### GETs
+
+- GET `/friends/:myPhone` gets users friends base on their own phone number
+- GET `/friend/:theirPhone` gets an user simply based on their phone number
 
 ### Data managment
 

@@ -169,8 +169,61 @@ app.post('/group/accept', async (req, res) => {
     }
 })
 
-// View 
-// app.get('/group/request', async(req, res) => {
-// })
+// GET requests
+app.get('/friends/:me', async (req, res) => {
+    const { me } = req.params
+    if(me == null) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: 'Phone number was not provided'
+        }))
+        return
+    }
 
+    try {
+        const result = await query(`
+    MATCH (n:USER)-[r:FRIENDS_WITH]-(f:USER)
+    WHERE n.phone = "${me}"
+    RETURN f
+    `)
+        res.send(result.records.map(a => a._fields[0].properties))
+    } catch(e) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: e.message
+        }))
+    }
+})
 
+app.get('/friend/:them', async (req, res) => {
+    const { them } = req.params
+    if(them == null) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: 'Phone number was not provided'
+        }))
+        return
+    }
+
+    try {
+        const result = await query(`
+        MATCH (n:USER)
+        WHERE n.phone = "${them}"
+        RETURN n
+    `)
+        if(result.records.length == 0) {
+            res.statusCode = 400
+            res.send(JSON.stringify({
+                error: `No person with ${them} phone number`
+            }))
+            return
+        }
+        res.send(result.records[0]._fields[0].properties)
+    } catch(e) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: e.message
+        }))
+    }
+    
+})
