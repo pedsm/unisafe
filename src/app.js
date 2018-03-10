@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-    res.send('hello')
+    res.send('Night Owls')
 })
 
 app.post('/user', async (req, res) => {
