@@ -1,6 +1,8 @@
 # unisafe
 UniSafe Backend
 
+`docker-compose up`
+
 ## Scripts
 
 - `npm stars` Only meant for docker don't use it
