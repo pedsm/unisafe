@@ -27,8 +27,8 @@ UniSafe Backend
 - POST `/group` creates a group
 ```JSON
 {
-    "phone": '123',
-    "postcode": 'ng71lr'
+    "phone": "123",
+    "postcode": "ng71lr"
 } 
 ```
 
