@@ -1,0 +1,24 @@
+{
+    "name": "unisafe",
+    "version": "1.0.0",
+    "description": "UniSafe Backend",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node src/app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pedsm/unisafe.git"
+    },
+    "author": "Night Owls",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/pedsm/unisafe/issues"
+    },
+    "homepage": "https://github.com/pedsm/unisafe#readme",
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "express": "^4.16.2"
+    }
+}
