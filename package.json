@@ -19,6 +19,7 @@
     "homepage": "https://github.com/pedsm/unisafe#readme",
     "dependencies": {
         "body-parser": "^1.18.2",
-        "express": "^4.16.2"
+        "express": "^4.16.2",
+        "neo4j-driver": "^1.5.3"
     }
 }
