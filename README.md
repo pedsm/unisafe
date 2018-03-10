@@ -1,6 +1,12 @@
 # unisafe
 UniSafe Backend
 
+## Scripts
+
+- `npm stars` Only meant for docker don't use it
+- `npm run dev` Runs dev server on port 3000
+- `npm test` Runs some queries as tests and fills the db a lil
+
 ## Backend endpoitns
 
 ### GETs
