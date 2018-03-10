@@ -25,6 +25,7 @@ UniSafe Backend
 ```
 
 - POST `/group/request` requests a friend to join
+
 // TODO make this endpoint safe as in user checking
 ```JSON
 Request body
