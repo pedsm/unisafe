@@ -227,3 +227,29 @@ app.get('/friend/:them', async (req, res) => {
     }
     
 })
+
+app.get('/groups/:me', async (req, res) => {
+    const { me } = req.params
+    if(me == null) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: 'No phone number provided'
+        }))
+        return
+    }
+
+    try {
+        const result = await query(`
+        MATCH (n:USER)-[r:IN]->(g:GROUP)
+        WHERE n.phone = "${me}"
+        RETURN g
+    `)
+        res.send(result.records.map(a => a._fields[0].properties))
+    } catch(e) {
+        res.statusCode = 400
+        res.send(JSON.stringify({
+            error: e.message
+        }))
+    }
+    
+})
