@@ -95,6 +95,10 @@ app.post('/group', async (req, res) => {
             lon: ${lon}
         }]-(p)
         RETURN ID(n)`)
+        console.log({
+            msg: `Group created for ${phone}`,
+            groupId: getReturn(result)
+        })
         res.send(JSON.stringify({
             msg: `Group created for ${phone}`,
             groupId: getReturn(result)
